@@ -65,7 +65,9 @@ def events(compact):
 
 async def smoke(live=False, binary=None, automatic=False, quiet=False, subagents=False):
     original_home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
-    with tempfile.TemporaryDirectory(prefix="compaction-test-") as directory:
+    # A Windows child can briefly retain stderr after native app-server exits.
+    # Cleanup timing must not turn a passing protocol probe into a startup failure.
+    with tempfile.TemporaryDirectory(prefix="compaction-test-", ignore_cleanup_errors=True) as directory:
         home = Path(directory)
         shutil.copy2(original_home / "models_cache.json", home / "models_cache.json")
         (home / "compaction-routing.json").write_text(json.dumps({"model": "gpt-5.6-terra", "reasoning_effort": "high"}))

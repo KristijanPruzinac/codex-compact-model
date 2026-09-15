@@ -8,10 +8,15 @@ $pythonSha256 = 'd1f04d990aee1253d8569e8e5104e30fa9f5fa830899f14843448872d936a2c
 if (!(Test-Path -LiteralPath $pythonZip)) {
     Invoke-WebRequest -Uri 'https://www.python.org/ftp/python/3.13.15/python-3.13.15-embed-amd64.zip' -OutFile $pythonZip
 }
-if ((Get-FileHash -LiteralPath $pythonZip -Algorithm SHA256).Hash.ToLowerInvariant() -ne $pythonSha256) {
+$pythonStream = [System.IO.File]::OpenRead($pythonZip)
+try {
+    $actualHash = [System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash($pythonStream)).Replace('-', '').ToLowerInvariant()
+} finally { $pythonStream.Dispose() }
+if ($actualHash -ne $pythonSha256) {
     throw 'Python download checksum does not match the official release.'
 }
-Expand-Archive -LiteralPath $pythonZip -DestinationPath (Join-Path $runtimeRoot 'python') -Force
+python -m zipfile -e $pythonZip (Join-Path $runtimeRoot 'python')
+if ($LASTEXITCODE -ne 0) { throw 'Could not unpack the verified Python runtime.' }
 Set-Content -LiteralPath (Join-Path $runtimeRoot 'python\python313._pth') -Value "python313.zip`n.`n..`n..\vendor`n" -Encoding ascii
 python -m pip install --only-binary=:all: --python-version 3.13 --platform win_amd64 --implementation cp --abi cp313 --upgrade --target (Join-Path $runtimeRoot 'vendor') -r (Join-Path $projectRoot 'requirements.txt')
 if ($LASTEXITCODE -ne 0) { throw 'Could not install bundled Python dependencies.' }
