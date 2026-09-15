@@ -7,7 +7,7 @@ Initial release: **Windows x64, local VS Code, ChatGPT sign-in**. This is an ind
 ## Use
 
 1. Install the official **Codex** extension (`openai.chatgpt`), sign in, and start a task so its model catalog is available.
-2. Install this extension's Windows VSIX from [GitHub Releases](https://github.com/KristijanPruzinac/codex-compact-model/releases).
+2. Install [Codex Compact Model from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Kristijan.codex-compact-model), or install the Windows VSIX from [GitHub Releases](https://github.com/KristijanPruzinac/codex-compact-model/releases).
 3. Run **Codex Compact Model: Enable** from the Command Palette, then reload VS Code.
 4. Click **Compact** in the status bar, or run **Codex Compact Model: Configure Model and Reasoning**.
 
