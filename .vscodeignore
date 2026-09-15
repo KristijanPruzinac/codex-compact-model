@@ -1,0 +1,16 @@
+.git/**
+.github/**
+.build/**
+node_modules/**
+scripts/**
+package-lock.json
+requirements.txt
+runtime/test_router.py
+runtime/**/__pycache__/**
+runtime/launcher.json
+runtime/official-extension.json
+runtime/verified*.json
+runtime/*.jsonl
+runtime/ready.json
+*.vsix
+.gitignore

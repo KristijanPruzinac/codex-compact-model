@@ -1,0 +1,16 @@
+node_modules/
+runtime/python/
+runtime/vendor/
+runtime/*.exe
+runtime/launcher.json
+runtime/official-extension.json
+runtime/verified*.json
+runtime/*.jsonl
+runtime/ready.json
+**/__pycache__/
+**/*.pyc
+*.vsix
+.build/
+.env*
+*.pat
+*.token

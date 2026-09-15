@@ -1,0 +1,72 @@
+{
+  "name": "codex-compact-model",
+  "displayName": "Codex Compact Model",
+  "description": "Choose a separate compaction model and reasoning while using the official Codex extension.",
+  "version": "0.1.0",
+  "publisher": "kristijanpruzinac",
+  "author": "Kristijan Pruzinac",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KristijanPruzinac/codex-compact-model.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KristijanPruzinac/codex-compact-model/issues"
+  },
+  "homepage": "https://github.com/KristijanPruzinac/codex-compact-model#readme",
+  "keywords": [
+    "codex",
+    "compaction",
+    "model",
+    "reasoning"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "extensionDependencies": [
+    "openai.chatgpt"
+  ],
+  "scripts": {
+    "check": "node --check extension.js",
+    "build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build.ps1",
+    "test": "python -m unittest discover -s runtime -p test_router.py -v",
+    "package": "vsce package --target win32-x64 --no-dependencies"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codexCompaction.configure",
+        "title": "Codex Compact Model: Configure Model and Reasoning"
+      },
+      {
+        "command": "codexCompaction.status",
+        "title": "Codex Compact Model: Show Status"
+      },
+      {
+        "command": "codexCompaction.log",
+        "title": "Codex Compact Model: Show Routing Log"
+      },
+      {
+        "command": "codexCompaction.enable",
+        "title": "Codex Compact Model: Enable"
+      },
+      {
+        "command": "codexCompaction.disable",
+        "title": "Codex Compact Model: Disable"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^4.0.0"
+  }
+}
